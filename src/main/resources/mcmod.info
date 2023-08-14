@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mcdisco",
+  "name": "MCDisco",
+  "description": "Discord Integration mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Melara1024"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
