@@ -54,7 +54,7 @@ public class Config {
         try {
             config.load();
             if (config.getCategory(category).containsKey(key)) {
-                return (float)config.get(category, key, 0D).getDouble();
+                return (float) config.get(category, key, 0D).getDouble();
             }
         } catch (Exception e) {
             //MCord.modLogger.warn("Cannot load configuration file!");
@@ -101,14 +101,14 @@ public class Config {
         try {
             config.load();
             if (config.getCategory(category).containsKey(key)) {
-                return (short)config.get(category, key, (short)0).getInt();
+                return (short) config.get(category, key, (short) 0).getInt();
             }
         } catch (Exception e) {
             //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
-        return (short)0;
+        return (short) 0;
     }
 
     public static byte getByte(String category, String key) {
@@ -116,14 +116,14 @@ public class Config {
         try {
             config.load();
             if (config.getCategory(category).containsKey(key)) {
-                return (byte)config.get(category, key, (byte)0).getInt();
+                return (byte) config.get(category, key, (byte) 0).getInt();
             }
         } catch (Exception e) {
             //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
-        return (byte)0;
+        return (byte) 0;
     }
 
     public static boolean getBoolean(String category, String key) {

@@ -13,7 +13,7 @@ import static ga.melara.mcord.MCord.modLogger;
 public class Bot {
     protected static JDA jda = null;
 
-    public void init(){
+    public void init() {
         try {
             jda = JDABuilder.createDefault(Config.getString("BOT", "BOT_TOKEN"), GatewayIntent.GUILD_MESSAGES)
                     .setRawEventsEnabled(true)
