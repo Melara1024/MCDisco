@@ -1,16 +1,15 @@
-package ga.melara.mcdisco;
+package ga.melara.mcord;
 
-import net.dv8tion.jda.api.JDA;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = MCDisco.MODID, name = MCDisco.NAME, version = MCDisco.VERSION, serverSideOnly = true, acceptableRemoteVersions="*")
-public class MCDisco
+@Mod(modid = MCord.MODID, name = MCord.NAME, version = MCord.VERSION, serverSideOnly = true, acceptableRemoteVersions="*")
+public class MCord
 {
-    public static final String MODID = "mcdisco";
-    public static final String NAME = "MCDisco";
+    public static final String MODID = "mcord";
+    public static final String NAME = "MC-ord";
     public static final String VERSION = "1.12.2-1.0.0.1";
 
     public static Logger modLogger;
@@ -27,7 +26,6 @@ public class MCDisco
     {
         Config.init();
         Bot bot = new Bot();
-
         bot.init();
     }
 

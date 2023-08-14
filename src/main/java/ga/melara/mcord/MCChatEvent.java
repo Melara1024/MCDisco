@@ -1,34 +1,18 @@
-package ga.melara.mcdisco;
+package ga.melara.mcord;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ImageBufferDownload;
-import net.minecraft.client.renderer.ThreadDownloadImageData;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.awt.*;
-import java.io.File;
-import java.util.regex.Pattern;
 
-import static ga.melara.mcdisco.Bot.jda;
-import static ga.melara.mcdisco.MCDisco.modLogger;
-import static net.minecraft.entity.player.EntityPlayer.getOfflineUUID;
+import static ga.melara.mcord.Bot.jda;
 
 @Mod.EventBusSubscriber
 public class MCChatEvent {
@@ -38,6 +22,7 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onChat(ServerChatEvent e) {
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         String message = String.format("<%s> %s", e.getPlayer().getDisplayName().getUnformattedText(), e.getMessage());
         channel.sendMessage(message).queue();
@@ -45,6 +30,7 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onAdvancement(AdvancementEvent e) {
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         EmbedBuilder eb = new EmbedBuilder();
 
@@ -58,6 +44,7 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent e) {
+        if (jda == null) return;
         if (e.getEntityLiving() instanceof EntityPlayer) {
             TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
             EmbedBuilder eb = new EmbedBuilder();
@@ -70,6 +57,7 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent e) {
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle(String.format("%sがログインしました", e.player.getDisplayName().getUnformattedText()));
@@ -80,6 +68,7 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onLogout(PlayerEvent.PlayerLoggedOutEvent e) {
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle(String.format("%sがログアウトしました", e.player.getDisplayName().getUnformattedText()));

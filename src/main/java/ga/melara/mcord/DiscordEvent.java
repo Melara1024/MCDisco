@@ -1,25 +1,15 @@
-package ga.melara.mcdisco;
+package ga.melara.mcord;
 
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.ServerWorldEventHandler;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static ga.melara.mcdisco.Bot.jda;
-import static ga.melara.mcdisco.MCDisco.modLogger;
+import static ga.melara.mcord.Bot.jda;
+import static ga.melara.mcord.MCord.modLogger;
 
 @Mod.EventBusSubscriber
 public class DiscordEvent extends ListenerAdapter {
@@ -28,12 +18,14 @@ public class DiscordEvent extends ListenerAdapter {
     private static final String CHANNEL_ID = Config.getString("BOT", "CHANNEL_ID");
 
     public static void startMessage(){
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         if(channel == null) return;
         channel.sendMessage(":white_check_mark: サーバーが起動しました！").queue();
     }
 
     public static void stopMessage(){
+        if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         if(channel == null) return;
         channel.sendMessage(":no_entry: サーバーが停止しました！").queue();
@@ -44,6 +36,7 @@ public class DiscordEvent extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
+        if (jda == null) return;
         String user = e.getMessage().getMember().getNickname();
         String content = e.getMessage().getContentDisplay();
         server = FMLCommonHandler.instance().getMinecraftServerInstance();

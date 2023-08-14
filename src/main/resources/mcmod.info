@@ -1,7 +1,7 @@
 [
 {
-  "modid": "mcdisco",
-  "name": "MCDisco",
+  "modid": "mcord",
+  "name": "MC-ord",
   "description": "Discord Integration mod.",
   "version": "${version}",
   "mcversion": "${mcversion}",
