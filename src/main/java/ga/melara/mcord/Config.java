@@ -13,7 +13,7 @@ public class Config {
         try {
             config.load();
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -27,7 +27,7 @@ public class Config {
                 return config.get(category, key, 0).getInt();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -42,7 +42,7 @@ public class Config {
                 return config.get(category, key, 0D).getDouble();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -57,7 +57,7 @@ public class Config {
                 return (float)config.get(category, key, 0D).getDouble();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -74,7 +74,7 @@ public class Config {
                 Config.writeConfig(category, key, "example");
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -89,7 +89,7 @@ public class Config {
                 return config.get(category, key, 0L).getLong();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -104,7 +104,7 @@ public class Config {
                 return (short)config.get(category, key, (short)0).getInt();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -119,7 +119,7 @@ public class Config {
                 return (byte)config.get(category, key, (byte)0).getInt();
             }
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -133,7 +133,7 @@ public class Config {
             if (config.getCategory(category).containsKey(key))
                 return config.get(category, key, false).getBoolean();
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -147,7 +147,7 @@ public class Config {
             String set = config.get(category, key, value).getString();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -160,7 +160,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -173,7 +173,7 @@ public class Config {
             boolean set = config.get(category, key, value).getBoolean();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -186,7 +186,7 @@ public class Config {
             long set = config.get(category, key, value).getLong();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -199,7 +199,7 @@ public class Config {
             double set = config.get(category, key, value).getDouble();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -212,7 +212,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(Integer.valueOf(value));
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -225,7 +225,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(Integer.valueOf(value));
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -238,7 +238,7 @@ public class Config {
             double set = config.get(category, key, value).getDouble();
             config.getCategory(category).get(key).set(Double.valueOf(value));
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -250,7 +250,7 @@ public class Config {
             config.load();
             return config.hasCategory(category);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -265,7 +265,7 @@ public class Config {
                 return false;
             return config.getCategory(category).containsKey(key);
         } catch (Exception e) {
-            MCord.modLogger.warn("Cannot load configuration file!");
+            //MCord.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }

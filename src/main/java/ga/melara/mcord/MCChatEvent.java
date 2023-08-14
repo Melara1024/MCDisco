@@ -1,7 +1,7 @@
 package ga.melara.mcord;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -57,17 +57,22 @@ public class MCChatEvent {
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent e) {
-        if (jda == null) return;
-        TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
-        EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle(String.format("%sがログインしました", e.player.getDisplayName().getUnformattedText()));
-        eb.setColor(Color.GREEN);
-        eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=48", e.player.getUniqueID()));
-        channel.sendMessageEmbeds(eb.build()).queue();
+        try {
+            if (jda == null) return;
+            TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
+            EmbedBuilder eb = new EmbedBuilder();
+            eb.setTitle(String.format("%sがログインしました", e.player.getDisplayName().getUnformattedText()));
+            eb.setColor(Color.GREEN);
+            eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=48", e.player.getUniqueID()));
+            channel.sendMessageEmbeds(eb.build()).queue();
+        }catch (NullPointerException exception){
+
+        }
     }
 
     @SubscribeEvent
     public static void onLogout(PlayerEvent.PlayerLoggedOutEvent e) {
+        try {
         if (jda == null) return;
         TextChannel channel = jda.getTextChannelById(CHANNEL_ID);
         EmbedBuilder eb = new EmbedBuilder();
@@ -75,5 +80,8 @@ public class MCChatEvent {
         eb.setColor(Color.RED);
         eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=48", e.player.getUniqueID()));
         channel.sendMessageEmbeds(eb.build()).queue();
+        }catch (NullPointerException exception){
+
+        }
     }
 }

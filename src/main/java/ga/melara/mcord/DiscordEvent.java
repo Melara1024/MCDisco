@@ -1,6 +1,7 @@
 package ga.melara.mcord;
 
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.Channel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.minecraft.server.MinecraftServer;
@@ -11,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import static ga.melara.mcord.Bot.jda;
 import static ga.melara.mcord.MCord.modLogger;
 
-@Mod.EventBusSubscriber
 public class DiscordEvent extends ListenerAdapter {
 
     private static final String SERVER_ID = Config.getString("BOT", "SERVER_ID");

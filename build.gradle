@@ -1,20 +1,36 @@
 buildscript {
     repositories {
+        jcenter()
         maven { url = 'https://maven.minecraftforge.net/' }
         mavenCentral()
-        maven {
-            name 'm2-dv8tion'
-            url 'https://m2.dv8tion.net/releases'
+//        maven {
+//            name 'm2-dv8tion'
+//            url 'https://m2.dv8tion.net/releases'
+//        }
+        repositories {
+            maven {
+                url "https://plugins.gradle.org/m2/"
+
+            }
         }
+        gradlePluginPortal()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.4"
     }
 }
-        
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java' // java plugin is needed for the shadow plugin to work
 
 version = '1.12.2-1.0.0.0'
 group = 'ga.melara.mcord'
@@ -26,24 +42,29 @@ tasks.withType(JavaCompile) {
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-minecraft {
-    mappings channel: 'snapshot', version: '20171003-1.12'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-        }
-
-        server {
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-        }
-    }
-}
-
 repositories {
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }// Maybe needed for other mods in the future
+    //maven { url "https://maven.latmod.com/" } //FTB
+    maven { url "https://repository.dev.gotan.io/repository/gotan.os/" }
+    maven { url "https://repo.opencollab.dev/maven-snapshots" }
+    maven { url "https://repo.opencollab.dev/maven-releases" }
+    maven {
+        name = 'sonatype-oss'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'howaner'
+        url = "http://repo.howaner.de/"
+    }
+    maven { url "https://repo.erdbeerbaerlp.de/repository/maven-public/" }
     mavenCentral()
     maven {
         name 'm2-dv8tion'
@@ -51,10 +72,94 @@ repositories {
     }
 }
 
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
-    implementation("net.dv8tion:JDA:5.0.0-beta.13")
+minecraft {
+    mappings channel: 'snapshot', version: '20171003-1.12'
+
+    runs {
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
 }
+
+
+configurations{
+    embed
+    compile.extendsFrom embed
+}
+task release {
+
+}
+shadowJar {
+    classifier = ''
+    configurations = [project.configurations.embed]
+    relocate 'org.slf4j', 'dcshadow.slf4j'
+    exclude('module-info.class', 'META-INF/versions/9/module-info.class')
+    // Keeping them causes errors when loaded by forge
+}
+reobf {
+    shadowJar {
+        dependsOn tasks.createMcpToSrg
+        mappings = tasks.createMcpToSrg.outputs.files.singleFile
+    }
+}
+artifacts {
+    archives tasks.shadowJar
+}
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 5, 'minutes'
+    }
+}
+dependencies {
+
+    embed('de.erdbeerbaerlp:dcintegration.common:2.4.7-j8') {
+        changing = true
+    }
+
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
+
+//    compile "net.dv8tion:JDA:5.0.0-beta.13"
+//    shade "net.dv8tion:JDA:5.0.0-beta.13"
+//    compile 'org.apache.logging.log4j:log4j-api:2.20.0'
+//    shade 'org.apache.logging.log4j:log4j-api:2.20.0'
+//    compile 'org.apache.logging.log4j:log4j-core:2.20.0'
+//    shade 'org.apache.logging.log4j:log4j-core:2.20.0'
+//    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
+//    shade 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
+//    compile 'org.slf4j:slf4j-api:1.7.36'
+//    shade 'org.slf4j:slf4j-api:1.7.36'
+//    compile "org.slf4j:slf4j-log4j12:1.7.36"
+//    shade "org.slf4j:slf4j-log4j12:1.7.36"
+//    compile 'org.slf4j:slf4j-simple:1.7.36'
+//    shade 'org.slf4j:slf4j-simple:1.7.36'
+//
+//    compile "ch.qos.logback:logback-core:1.2.8"
+//    shade "ch.qos.logback:logback-core:1.2.8"
+//    compile "ch.qos.logback:logback-classic:1.2.8"
+//    shade "ch.qos.logback:logback-classic:1.2.8"
+//
+//    implementation 'com.discord4j:discord4j-core:3.2.5'
+}
+
+//shadowJar {
+//    classifier ''
+//    configurations = [project.configurations.shade]
+//    //relocate 'net.dv8tion', "${project.group}.shadow.net.dv8tion"
+//    relocate 'org.apache.commons.collections4', 'ml.denis3d.repack.org.apache.commons.collections4'
+//    relocate 'gnu.trove', 'ml.denis3d.repack.gnu.trove'
+//    relocate "com.neovisionaries.ws.client", "ml.denis3d.repack.com.neovisionaries.ws.client"
+//    relocate "com.iwebpp.crypto", "ml.denis3d.repack.com.iwebpp.crypto"
+//    relocate "net.dv8tion.jda", "ml.denis3d.repack.net.dv8tion.jda"
+//    relocate "org.json", "ml.denis3d.repack.org.json"
+//    relocate "okio", "ml.denis3d.repack.okio"
+//    relocate "okhttp3", "ml.denis3d.repack.okhttp3"
+//    relocate "okhttp3", "ml.denis3d.repack.okhttp3"
+//    relocate "org.slf4j", "ml.denis3d.repack.org.slf4j"
+//    relocate "com.fasterxml.jackson", "ml.denis3d.repack.com.fasterxml.jackson"
+//    relocate "club.minnced.discord", "ml.denis3d.repack.club.minnced.discord"
+//}
 
 jar {
     manifest {
@@ -70,7 +175,11 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
+reobf {
+    shadowJar {}
+}
+shadowJar.finalizedBy('reobfShadowJar')
+jar.finalizedBy('reobfShadowJar')
 
 publishing {
     publications {
