@@ -14,38 +14,7 @@ public class Config {
         try {
             config.load();
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
-        } finally {
-            config.save();
-        }
-    }
-
-    /*
-     * Removes specific category from configuration file.
-     */
-    public static void removeConfig(String category) {
-        config = new Configuration(new File(file));
-        try {
-            config.load();
-            if (config.hasCategory(category))
-                config.removeCategory(new ConfigCategory(category));
-        } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
-        } finally {
-            config.save();
-        }
-    }
-    /*
-     * Removes specific key in specific category from configuration file.
-     */
-    public static void removeConfig(String category, String key) {
-        config = new Configuration(new File(file));
-        try {
-            config.load();
-            if (config.getCategory(category).containsKey(key))
-                config.getCategory(category).remove(key);
-        } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -59,7 +28,7 @@ public class Config {
                 return config.get(category, key, 0).getInt();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -74,7 +43,7 @@ public class Config {
                 return config.get(category, key, 0D).getDouble();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -89,7 +58,7 @@ public class Config {
                 return (float)config.get(category, key, 0D).getDouble();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -102,9 +71,11 @@ public class Config {
             config.load();
             if (config.getCategory(category).containsKey(key)) {
                 return config.get(category, key, "").getString();
+            } else {
+                Config.writeConfig(category, key, "plz type here");
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -119,7 +90,7 @@ public class Config {
                 return config.get(category, key, 0L).getLong();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -134,7 +105,7 @@ public class Config {
                 return (short)config.get(category, key, (short)0).getInt();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -149,7 +120,7 @@ public class Config {
                 return (byte)config.get(category, key, (byte)0).getInt();
             }
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -163,7 +134,7 @@ public class Config {
             if (config.getCategory(category).containsKey(key))
                 return config.get(category, key, false).getBoolean();
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -177,7 +148,7 @@ public class Config {
             String set = config.get(category, key, value).getString();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -190,7 +161,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -203,7 +174,7 @@ public class Config {
             boolean set = config.get(category, key, value).getBoolean();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -216,7 +187,7 @@ public class Config {
             long set = config.get(category, key, value).getLong();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -229,7 +200,7 @@ public class Config {
             double set = config.get(category, key, value).getDouble();
             config.getCategory(category).get(key).set(value);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -242,7 +213,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(Integer.valueOf(value));
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -255,7 +226,7 @@ public class Config {
             int set = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(Integer.valueOf(value));
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -268,7 +239,7 @@ public class Config {
             double set = config.get(category, key, value).getDouble();
             config.getCategory(category).get(key).set(Double.valueOf(value));
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -280,7 +251,7 @@ public class Config {
             config.load();
             return config.hasCategory(category);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
@@ -295,7 +266,7 @@ public class Config {
                 return false;
             return config.getCategory(category).containsKey(key);
         } catch (Exception e) {
-            System.out.println("Cannot load configuration file!");
+            MCDisco.modLogger.warn("Cannot load configuration file!");
         } finally {
             config.save();
         }
