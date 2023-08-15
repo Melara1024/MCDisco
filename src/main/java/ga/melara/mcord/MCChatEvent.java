@@ -29,7 +29,7 @@ public class MCChatEvent {
         if (channel == null) return;
 
         String user = removeFormatting(e.getPlayer().getDisplayName().getUnformattedText());
-        String message = String.format("<%s> %s", e.getPlayer().getDisplayName().getUnformattedText(), e.getMessage());
+        String message = String.format("<%s> %s", user, e.getMessage());
         channel.sendMessage(message).queue();
     }
 
