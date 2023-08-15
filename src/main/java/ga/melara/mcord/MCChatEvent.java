@@ -58,7 +58,7 @@ public class MCChatEvent {
 
             String user = removeFormatting(e.getEntityLiving().getDisplayName().getUnformattedText());
             EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle(String.format("%sが死んでしまった", user));
+            eb.setTitle(String.format("%sは死んでしまった", user));
             eb.setDescription(String.format("死因：%s", e.getSource().damageType));
             eb.setColor(Color.DARK_GRAY);
             channel.sendMessageEmbeds(eb.build()).queue();
@@ -76,7 +76,7 @@ public class MCChatEvent {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setTitle(String.format("%sがログインしました", user));
             eb.setColor(Color.GREEN);
-            eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=48", e.player.getUniqueID()));
+            eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=32", e.player.getUniqueID()));
             channel.sendMessageEmbeds(eb.build()).queue();
         } catch (NullPointerException exception) {
 
@@ -94,7 +94,7 @@ public class MCChatEvent {
             EmbedBuilder eb = new EmbedBuilder();
             eb.setTitle(String.format("%sがログアウトしました", user));
             eb.setColor(Color.RED);
-            eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=48", e.player.getUniqueID()));
+            eb.setThumbnail(String.format("https://crafatar.com/avatars/%s?size=32", e.player.getUniqueID()));
             channel.sendMessageEmbeds(eb.build()).queue();
         } catch (NullPointerException exception) {
 
